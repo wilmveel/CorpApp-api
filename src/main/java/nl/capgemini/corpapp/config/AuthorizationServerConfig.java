@@ -1,5 +1,7 @@
 package nl.capgemini.corpapp.config;
 
+import nl.capgemini.corpapp.handler.SparklrUserApprovalHandler;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +13,6 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler;
 import org.springframework.security.oauth2.config.annotation.authentication.configurers.InMemoryClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.OAuth2AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
@@ -53,7 +54,7 @@ public class AuthorizationServerConfig extends OAuth2AuthorizationServerConfigur
 	 			.resourceIds(SPARKLR_RESOURCE_ID)
 	 			.authorizedGrantTypes("authorization_code", "implicit")
 	 			.authorities("ROLE_CLIENT")
-	 			.scopes("people")
+	 			//.scopes("people", "carpool")
 	 			.secret("secret")
 	 			.redirectUris("http://localhost")
 	 		.and()	
