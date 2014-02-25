@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import nl.capgemini.corpapp.config.ApplicationConfig;
+import nl.capgemini.corpapp.filter.CorsFilter;
 
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -54,12 +55,17 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 		jersey.setLoadOnStartup(1);
 		jersey.setInitParameter("com.sun.jersey.config.property.packages", "nl.capgemini.corpapp.rest");
 		jersey.setInitParameter("com.sun.jersey.api.json.POJOMappingFeature", "true");
-		
 		jersey.addMapping("/rest/*");
+		
+		CorsFilter corsFilter = new CorsFilter();
+		servletContext.addFilter("corsFilter", corsFilter).addMappingForUrlPatterns(null, false, "/*");
 		
 		DelegatingFilterProxy filter = new DelegatingFilterProxy("springSecurityFilterChain");
 		filter.setContextAttribute("org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher");
 		servletContext.addFilter("springSecurityFilterChain", filter).addMappingForUrlPatterns(null, false, "/*");
+		
+		
+
 	}
 	
 	

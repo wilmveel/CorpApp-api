@@ -56,7 +56,7 @@ public class OAuth2ServerConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .expressionHandler(new OAuth2WebSecurityExpressionHandler())
-                .antMatchers("/rest/**").access("#oauth2.clientHasRole('ROLE_CLIENT') and hasRole('ROLE_USER')")
+                .antMatchers("/rest/**").access("#oauth2.clientHasRole('ROLE_CLIENT') or hasRole('ROLE_USER')")
                 .and()
             .requestMatchers()
                 .antMatchers("/rest/**")
