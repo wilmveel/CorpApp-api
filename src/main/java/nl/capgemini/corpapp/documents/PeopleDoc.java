@@ -3,7 +3,7 @@ package nl.capgemini.corpapp.documents;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "people")
-public class PeopleDto {
+public class PeopleDoc {
 
 	private String firstName;
 	private String preFix;
@@ -11,7 +11,7 @@ public class PeopleDto {
 
 	private String corpKey;
 	
-	public PeopleDto() {
+	public PeopleDoc() {
 		// TODO Auto-generated constructor stub
 	}
 

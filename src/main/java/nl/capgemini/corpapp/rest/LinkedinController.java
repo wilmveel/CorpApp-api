@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import nl.capgemini.corpapp.documents.Linkedin;
-import nl.capgemini.corpapp.documents.PeopleDto;
+import nl.capgemini.corpapp.documents.PeopleDoc;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;

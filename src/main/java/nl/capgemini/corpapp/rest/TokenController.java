@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import nl.capgemini.corpapp.documents.PeopleDto;
+import nl.capgemini.corpapp.documents.PeopleDoc;
 import nl.capgemini.corpapp.documents.Token;
 import nl.capgemini.corpapp.documents.User;
 

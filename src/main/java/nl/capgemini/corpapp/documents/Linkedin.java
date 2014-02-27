@@ -10,17 +10,18 @@ public class Linkedin implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String corpKey;
+	private String corpkey;
+	private String accesToken;
 	private String pictureUrl;
 
-	private Collection<LinkedinSkill> skils;
+	private Collection<String> skils;
 
-	public String getCorpKey() {
-		return corpKey;
+	public String getCorpkey() {
+		return corpkey;
 	}
 
-	public void setCorpKey(String corpKey) {
-		this.corpKey = corpKey;
+	public void setCorpkey(String corpkey) {
+		this.corpkey = corpkey;
 	}
 
 	public String getPictureUrl() {
@@ -31,11 +32,19 @@ public class Linkedin implements Serializable {
 		this.pictureUrl = pictureUrl;
 	}
 
-	public Collection<LinkedinSkill> getSkils() {
+	public String getAccesToken() {
+		return accesToken;
+	}
+
+	public void setAccesToken(String accesToken) {
+		this.accesToken = accesToken;
+	}
+
+	public Collection<String> getSkils() {
 		return skils;
 	}
 
-	public void setSkils(Collection<LinkedinSkill> skils) {
+	public void setSkils(Collection<String> skils) {
 		this.skils = skils;
 	}
 

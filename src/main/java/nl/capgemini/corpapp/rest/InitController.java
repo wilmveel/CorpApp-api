@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import nl.capgemini.corpapp.documents.Carpool;
-import nl.capgemini.corpapp.documents.PeopleDto;
+import nl.capgemini.corpapp.documents.PeopleDoc;
 import nl.capgemini.corpapp.documents.User;
 
 import org.springframework.data.mongodb.core.MongoOperations;
