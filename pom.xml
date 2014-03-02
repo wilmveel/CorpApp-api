@@ -13,56 +13,13 @@
 	<properties>
 		<m2eclipse.wtp.contextRoot>/sparklr2</m2eclipse.wtp.contextRoot>
 		<jersey.version>1.18</jersey.version>
+		<tomcat.version>7.0.34</tomcat.version>
 	</properties>
 
 	<artifactId>sparklr2</artifactId>
 	<packaging>war</packaging>
 	<name>OAuth for Spring Security - Sparklr2 (OAuth 2 Provider Example)</name>
 
-	<profiles>
-		<profile>
-			<id>integration</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.7.1</version>
-						<executions>
-							<execution>
-								<id>surefire-it</id>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-								<configuration>
-									<skip>${skipTests}</skip>
-									<testFailureIgnore>false</testFailureIgnore>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>tomcat-maven-plugin</artifactId>
-						<version>1.1</version>
-						<executions>
-							<execution>
-								<id>start-tomcat</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<fork>true</fork>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 	<build>
 		<plugins>
@@ -90,7 +47,7 @@
 					<version>2.3</version>
 					<configuration>
 						<!-- web.xml is not mandatory since JavaEE 5 -->
-						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<!-- failOnMissingWebXml>false</failOnMissingWebXml -->
 					</configuration>
 				</plugin>
 			</plugins>
@@ -280,6 +237,38 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+
+		<!-- Tomcat -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper-el</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jsp-api</artifactId>
+			<version>${tomcat.version}</version>
 		</dependency>
 
 	</dependencies>
