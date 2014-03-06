@@ -9,12 +9,12 @@
     </layout> 
   </appender> 
 
-	<logger name="nl.capgemini">
+  <logger name="nl.capgemini">
     <!-- Print only messages of level warn or above in the package com.foo -->
     <level value="debug"/> 
   </logger>
   <root> 
-    <priority value ="debug" /> 
+    <priority value ="error" /> 
     <appender-ref ref="console" /> 
   </root>
   
