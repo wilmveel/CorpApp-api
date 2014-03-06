@@ -25,9 +25,15 @@ public class LinkedinJob {
 	@Resource
 	LinkedinService linkedinService;
 		
-	@Scheduled(cron="*/5 * * * * MON-FRI")
+	@Scheduled(cron="0 * * * * *")
+	public void test(){
+		LOG.debug("Test schedule " + new Date());
+	}
+	
+	@Scheduled(cron="0 0 * * * *")
 	public void sync(){
 		
+		LOG.debug("Sync linkedin");
 		
 		Collection<Linkedin> linkedinList = mongoOperation.findAll(Linkedin.class);
 		
