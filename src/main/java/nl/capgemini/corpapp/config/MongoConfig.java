@@ -10,11 +10,12 @@ import com.mongodb.MongoClientURI;
 
 public class MongoConfig extends AbstractMongoConfiguration {
 
-	private String MONGO_URI = "mongodb://admin:4dwFYkdd@SG-corpapp-2049.servers.mongodirector.com:27017/admin";
-
+	//private String MONGO_URI = "mongodb://admin:4dwFYkdd@SG-corpapp-2049.servers.mongodirector.com:27017/admin";
+	private String MONGO_URI = "mongodb://corpapp:corpapp@ds033069.mongolab.com:33069/corpapp";
+	
 	@Override
 	public String getDatabaseName() {
-		return "capapp";
+		return "corpapp";
 	}
 
 	@Override

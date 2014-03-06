@@ -6,11 +6,10 @@
 	<groupId>nl.capgemini.corpapp</groupId>
 	<artifactId>corp-api</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
-	<packaging>${packaging.type}</packaging>
+	<packaging>war</packaging>
 	<name>Backend for corpapp</name>
 
 	<properties>
-		<packaging.type>war</packaging.type>
 
 		<m2eclipse.wtp.contextRoot>/corpapi</m2eclipse.wtp.contextRoot>
 		<jersey.version>1.18</jersey.version>
@@ -32,30 +31,29 @@
 					<name>env.DYNO</name>
 				</property>
 			</activation>
-			<properties>
-				<packaging.type>jar</packaging.type>
-			</properties>
+
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>appassembler-maven-plugin</artifactId>
-						<version>1.1.1</version>
-						<configuration>
-							<assembleDirectory>target</assembleDirectory>
-							<programs>
-								<program>
-									<mainClass>nl.capgemini.corpapp.launch.Main</mainClass>
-									<name>webapp</name>
-								</program>
-							</programs>
-						</configuration>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.3</version>
 						<executions>
 							<execution>
 								<phase>package</phase>
 								<goals>
-									<goal>assemble</goal>
+									<goal>copy</goal>
 								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.github.jsimone</groupId>
+											<artifactId>webapp-runner</artifactId>
+											<version>7.0.40.0</version>
+											<destFileName>webapp-runner.jar</destFileName>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -281,38 +279,7 @@
 			<version>1.2.17</version>
 		</dependency>
 
-		<!-- Tomcat -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-core</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-logging-juli</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper-el</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jsp-api</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-
+		
 	</dependencies>
 
 </project>

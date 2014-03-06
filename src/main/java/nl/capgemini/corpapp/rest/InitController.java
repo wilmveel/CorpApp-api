@@ -1,32 +1,56 @@
-package nl.capgemini.corpapp.rest;
+ package nl.capgemini.corpapp.rest;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import nl.capgemini.corpapp.documents.Carpool;
-import nl.capgemini.corpapp.documents.PeopleDoc;
+import nl.capgemini.corpapp.documents.Escape;
+import nl.capgemini.corpapp.documents.Linkedin;
 import nl.capgemini.corpapp.documents.User;
 
+import org.apache.log4j.Logger;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
 
 @Component
 @Path("/init")
 public class InitController {
+	
+	private static final Logger LOG = Logger.getLogger(InitController.class);
 
 	@Resource
 	MongoOperations mongoOperation;
 
 	@GET
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object getInit() {
+		
+		LOG.debug("getInit");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("users", this.getInitUser());
+		map.put("carpool", this.getInitCarpool());
+		map.put("linkedin", this.getInitLinkedin());
+		map.put("escape", this.getInitEscape());
+		
+		return map;
+	}
+	
+	@GET
 	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Object getInitUser() {
+		
+		LOG.debug("getInitUser");
 
 		
 		mongoOperation.dropCollection(User.class);
@@ -53,10 +77,52 @@ public class InitController {
 		mongoOperation.save(new Carpool("Amsterdam", "Utrecht", "WVEELENT"));
 		mongoOperation.save(new Carpool("Gouda", "Den Haag", "BALTENA"));
 
-		List<Carpool> User = mongoOperation.findAll(Carpool.class);
+		List<Carpool> carpool = mongoOperation.findAll(Carpool.class);
 
-		return User;
+		return carpool;
 
 	}
+	
+	@GET
+	@Path("/linkedin")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object getInitLinkedin() {
+
+		
+		mongoOperation.dropCollection(Linkedin.class);
+		
+		// Init users
+		mongoOperation.save(new Linkedin("CAUKEMA", "AQVVCKNvIcuukse2nmLKvcHbqBvFWsKpCdBIe1WAFoatBNGRO2-FWfIs6ifeS4zsMzuzJXvvhoPx2bS2ccbYKHN7JABBGS06P3Ridgw8uFfnnNNzMvr0SFnf4sGzubVN4dIu7Y0pmgviQP8kkWIGdYGzhu__4UiYdD09TAnllrfp450zYpQ"));
+		mongoOperation.save(new Linkedin("WVEELENT", "AQXv5GOcGNGoR4Xuy4PSNMg6b2evkqKOmfdNk5ed3i1XPp_E5KpjFl3FAEmekVg5YfjLSFa3D9E0i3LPHBRSheaPU1F8WKbWsyjuVB9D66108UKXSMFX7UdrXStQEcVuWP-yF8oRXNM1J0ZZ0x7QVv4fATkiagIp0rn_ntO3bfFQMc54RHU"));
+		mongoOperation.save(new Linkedin("WSLAGER", "AQUjNB-yqO3Q_il972SGyl6a-DCCBznVEgtF63-Tx30jWbPJFonVh0Hg49lEMFy_x8qWwPSofMgMAt5uzYs103gyw7jogfl0pAohkih1-PZhD0T5b61oyb7lAef-GrU0wX1foXkFKYG7zaArx-xHaRkBPO-EtwAQMXMnpaooSxUPpBADwD4"));
+		mongoOperation.save(new Linkedin("PCHAUBEY", "AQVLGF1TJh_yQr5R6i4AC_Ho5bPtvAzG7Et7jM88xTGbSCxs5GZvAKpO4xv9beA-ZuV-S2lnxhrTG-nCNlKoMlNao0gZrCtjtA-MBFI9xe4UkPEzh6ULF3eRbdVKPle6nIq1QevUmfEfqDQp7WeXUdBoKtj9adpBJ9goUTBeFZ3HcXxdxtI"));
+		mongoOperation.save(new Linkedin("IREKOK", "AQVAk-ZDW1Wkb9mnhIr0cJMTxlkw_rgYiJYMebklHZAUs3x_fPYOabu0LZ3Fw_n1oSXc6mVfUJdq9hyYYZ9Tpdj-db3itybFAM6108uQR3NsWWn_iEKKkARDjtYADZIuW3gstaxeo4wRQtS4tcvGp8ARnAbGrY6ox0cwQKXM-sh9hghPHhU"));
+
+
+		List<Linkedin> linkedin = mongoOperation.findAll(Linkedin.class);
+
+		return linkedin;
+
+	}
+
+	@GET
+	@Path("/escape")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object getInitEscape() {
+
+		
+		mongoOperation.dropCollection(Escape.class);
+		
+		// Init users
+		mongoOperation.save(new Escape("Wintersport", new Date()));
+		mongoOperation.save(new Escape("Efteling", new Date()));
+	
+
+		List<Escape> escape = mongoOperation.findAll(Escape.class);
+
+		return escape;
+
+	}
+
 
 }
