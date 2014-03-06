@@ -35,6 +35,7 @@ public class LinkedinJob {
 			LOG.debug("Sync: " + linkedinDoc.getCorpkey());
 			LOG.debug("Token: " + linkedinDoc.getAccesToken());
 			Linkedin l = linkedinService.pull(linkedinDoc.getAccesToken());
+			l.setCorpkey(linkedinDoc.getCorpkey());
 			l.setId(linkedinDoc.getId());
 			l.setSync(new Date());
 			mongoOperation.save(l);

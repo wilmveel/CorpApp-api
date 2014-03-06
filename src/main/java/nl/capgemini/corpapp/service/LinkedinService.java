@@ -65,7 +65,6 @@ public class LinkedinService {
 			}
 
 			Linkedin linkedinDoc = new Linkedin();
-			linkedinDoc.setCorpkey("WVEELENT");
 			linkedinDoc.setAccesToken(token);
 			linkedinDoc.setPictureUrl(jsonObject.get("pictureUrl").toString());
 			linkedinDoc.setSkils(linkedinSkillList);
