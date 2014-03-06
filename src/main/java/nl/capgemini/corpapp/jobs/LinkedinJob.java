@@ -1,6 +1,7 @@
 package nl.capgemini.corpapp.jobs;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -35,7 +36,7 @@ public class LinkedinJob {
 			LOG.debug("Token: " + linkedinDoc.getAccesToken());
 			Linkedin l = linkedinService.pull(linkedinDoc.getAccesToken());
 			l.setId(linkedinDoc.getId());
-			
+			l.setSync(new Date());
 			mongoOperation.save(l);
 			
 		}

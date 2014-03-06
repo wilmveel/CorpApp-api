@@ -2,6 +2,7 @@ package nl.capgemini.corpapp.documents;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,15 +14,17 @@ public class Linkedin implements Serializable {
 
 	@Id
 	private String id;
-	
+
 	private String corpkey;
 	private String accesToken;
 	private String pictureUrl;
 
 	private Collection<String> skils;
-	
+
+	private Date sync;
+
 	public Linkedin() {
-		
+
 	}
 
 	public Linkedin(String corpkey, String accesToken) {
@@ -30,7 +33,6 @@ public class Linkedin implements Serializable {
 		this.accesToken = accesToken;
 	}
 
-	
 	public String getId() {
 		return id;
 	}
@@ -69,6 +71,14 @@ public class Linkedin implements Serializable {
 
 	public void setSkils(Collection<String> skils) {
 		this.skils = skils;
+	}
+
+	public Date getSync() {
+		return sync;
+	}
+
+	public void setSync(Date sync) {
+		this.sync = sync;
 	}
 
 }

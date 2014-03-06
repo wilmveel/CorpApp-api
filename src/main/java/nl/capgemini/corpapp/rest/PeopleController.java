@@ -26,8 +26,6 @@ public class PeopleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Object get() {
 
-		
-		
 		List<PeopleDoc> peopleList = mongoOperation.findAll(PeopleDoc.class);
 		return peopleList;
 
