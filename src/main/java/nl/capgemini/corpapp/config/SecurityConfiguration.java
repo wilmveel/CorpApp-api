@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public MongoUserDetailsService mongoUserDetailsService() {
@@ -43,15 +43,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		http.authorizeRequests().antMatchers("/login.jsp").permitAll().and().authorizeRequests().anyRequest().hasRole("USER").and().exceptionHandling()
-				.accessDeniedPage("/login.jsp?authorization_error=true")
-				.and()
-				// TODO: put CSRF protection back into this endpoint
-				.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize")).disable().logout().logoutSuccessUrl("/index.jsp")
-				.logoutUrl("/logout.do").and().formLogin().usernameParameter("j_username").passwordParameter("j_password")
-				.failureUrl("/login.jsp?authentication_error=true").loginProcessingUrl("/login.do");
-		// @formatter:on
-	}
+    protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
+                 http
+            .authorizeRequests().antMatchers("/login.jsp").permitAll().and()
+            .authorizeRequests()
+                .anyRequest().hasRole("USER")
+                .and()
+            .exceptionHandling()
+                .accessDeniedPage("/login.jsp?authorization_error=true")
+                .and()
+            // TODO: put CSRF protection back into this endpoint
+            .csrf()
+                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize")).disable()
+            .logout()
+                .logoutSuccessUrl("/index.jsp")
+                .logoutUrl("/logout.do")
+                .and()
+            .formLogin()
+                    .usernameParameter("j_username")
+                    .passwordParameter("j_password")
+                    .failureUrl("/login.jsp?authentication_error=true")
+                    .loginProcessingUrl("/login.do");
+        // @formatter:on
+    }
 }

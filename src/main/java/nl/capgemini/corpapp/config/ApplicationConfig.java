@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan("nl.capgemini.corpapp")
-@Import({ MongoConfig.class, SecurityConfig.class, AuthorizationServerConfig.class, OAuth2ServerConfig.class, SchedulConfig.class })
+@Import({ MongoConfig.class, SecurityConfiguration.class, OAuth2AuthorizationServerConfiguration.class, OAuth2ResourceServerConfiguration.class, MethodSecurityConfig.class, SchedulConfig.class })
 public class ApplicationConfig {
 
 }

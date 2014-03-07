@@ -20,7 +20,7 @@ public class MongoUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+
 		GrantedAuthority grantedAuthority = new GrantedAuthority() {
 
 			private static final long serialVersionUID = 1L;
@@ -35,6 +35,10 @@ public class MongoUserDetails implements UserDetails {
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 		list.add(grantedAuthority);
 		return list;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 	@Override

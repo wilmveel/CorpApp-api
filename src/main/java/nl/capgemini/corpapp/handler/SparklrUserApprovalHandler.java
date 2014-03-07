@@ -71,8 +71,8 @@ public class SparklrUserApprovalHandler extends ApprovalStoreUserApprovalHandler
 			}
 		}
 		authorizationRequest.setApproved(approved);
+
 		return authorizationRequest;
 
 	}
-
 }

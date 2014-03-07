@@ -1,7 +1,6 @@
 package nl.capgemini.corpapp.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
 import com.mongodb.Mongo;

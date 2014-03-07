@@ -7,14 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.oauth2.config.annotation.authentication.configurers.InMemoryClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.OAuth2AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
@@ -24,18 +20,12 @@ import org.springframework.security.oauth2.provider.token.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
-@Order(1)
-public class AuthorizationServerConfig extends OAuth2AuthorizationServerConfigurerAdapter {
+@EnableAuthorizationServer
+public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter  {
 
-	private static final String SPARKLR_RESOURCE_ID = "sparklr";
+	private static final String SPARKLR_RESOURCE_ID = "CorpApi";
 
-	@Autowired
-	private TokenStore tokenStore;
-
-	@Bean
-	public TokenStore tokenStore() {
-		return new InMemoryTokenStore();
-	}
+	private TokenStore tokenStore = new InMemoryTokenStore();
 
 	@Autowired
 	private OAuth2RequestFactory requestFactory;
@@ -51,23 +41,21 @@ public class AuthorizationServerConfig extends OAuth2AuthorizationServerConfigur
 	private String tonrRedirectUri;
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
 		// @formatter:off
-		auth.apply(new InMemoryClientDetailsServiceConfigurer())
+		clients.inMemory()
 				.withClient("corpapp")
 				.resourceIds(SPARKLR_RESOURCE_ID)
 				.authorizedGrantTypes("authorization_code", "implicit")
 				.authorities("ROLE_CLIENT")
 				// .scopes("people", "carpool")
 				.secret("secret")
-				//.redirectUris("http://localhost")
-				.and()
-				.withClient("tonr").resourceIds(SPARKLR_RESOURCE_ID)
-				.authorizedGrantTypes("authorization_code", "implicit").authorities("ROLE_CLIENT").scopes("read", "write").secret("secret").and()
-				.withClient("tonr-with-redirect").resourceIds(SPARKLR_RESOURCE_ID).authorizedGrantTypes("authorization_code", "implicit")
-				.authorities("ROLE_CLIENT").scopes("read", "write", "trust").secret("secret").redirectUris(tonrRedirectUri).and()
-				.withClient("my-client-with-registered-redirect").resourceIds(SPARKLR_RESOURCE_ID)
+				// .redirectUris("http://localhost")
+				.and().withClient("tonr").resourceIds(SPARKLR_RESOURCE_ID).authorizedGrantTypes("authorization_code", "implicit").authorities("ROLE_CLIENT")
+				.scopes("read", "write").secret("secret").and().withClient("tonr-with-redirect").resourceIds(SPARKLR_RESOURCE_ID)
+				.authorizedGrantTypes("authorization_code", "implicit").authorities("ROLE_CLIENT").scopes("read", "write").secret("secret")
+				.redirectUris(tonrRedirectUri).and().withClient("my-client-with-registered-redirect").resourceIds(SPARKLR_RESOURCE_ID)
 				.authorizedGrantTypes("authorization_code", "client_credentials").authorities("ROLE_CLIENT").scopes("read", "trust")
 				.redirectUris("http://anywhere?key=value").and().withClient("my-trusted-client")
 				.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit").authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
@@ -81,9 +69,6 @@ public class AuthorizationServerConfig extends OAuth2AuthorizationServerConfigur
 	}
 
 	@Bean
-	@Override
-	@Lazy
-	@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public SparklrUserApprovalHandler userApprovalHandler() throws Exception {
 		SparklrUserApprovalHandler handler = new SparklrUserApprovalHandler();
 		handler.setApprovalStore(approvalStore());
@@ -101,7 +86,7 @@ public class AuthorizationServerConfig extends OAuth2AuthorizationServerConfigur
 	}
 
 	@Override
-	protected void configure(OAuth2AuthorizationServerConfigurer oauthServer) throws Exception {
+	public void configure(OAuth2AuthorizationServerConfigurer oauthServer) throws Exception {
 		oauthServer.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler()).authenticationManager(authenticationManager).realm("sparklr2/client");
 	}
 
