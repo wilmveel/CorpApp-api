@@ -17,6 +17,10 @@ public class Linkedin implements Serializable {
 
 	private String corpkey;
 	private String accesToken;
+
+	private String lastName;
+	private String firstName;
+	private String headline;
 	private String pictureUrl;
 
 	private Collection<String> skils;
@@ -79,6 +83,30 @@ public class Linkedin implements Serializable {
 
 	public void setSync(Date sync) {
 		this.sync = sync;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getHeadline() {
+		return headline;
+	}
+
+	public void setHeadline(String headline) {
+		this.headline = headline;
 	}
 
 }

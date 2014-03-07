@@ -25,10 +25,10 @@ public class LinkedinService {
 
 	private static final String LINKEDIN_URL = "https://api.linkedin.com/v1/people";
 
-	public static Linkedin pull(String token) {
+	public Linkedin pull(String token) {
 
 		StringBuilder url = new StringBuilder(LINKEDIN_URL);
-		url.append("/~:(picture-url,skills,certifications,educations)");
+		url.append("/~:(first-name,last-name,headline,picture-url,skills,certifications,educations,)");
 		url.append("?oauth2_access_token=" + token);
 
 		LOG.debug("Linkedin URL: " + url);
@@ -52,11 +52,9 @@ public class LinkedinService {
 
 			LOG.debug("Linkedin Object: " + jsonObject);
 
+			// SKills
 			JSONObject skillsJson = (JSONObject) jsonObject.get("skills");
 			JSONArray skillsValeJson = (JSONArray) skillsJson.get("values");
-
-			LOG.debug("skillsValeJson: " + skillsValeJson);
-
 			List<String> linkedinSkillList = new ArrayList<String>();
 			for (Object skillObject : skillsValeJson) {
 				JSONObject skillJson = (JSONObject) skillObject;
@@ -64,10 +62,20 @@ public class LinkedinService {
 				linkedinSkillList.add(skill.get("name").toString());
 			}
 
+			// Picture url
+			String pictureUrl = jsonObject.get("pictureUrl").toString();
+			String lastName = jsonObject.get("lastName").toString();
+			String firstName = jsonObject.get("firstName").toString();
+			String headline = jsonObject.get("headline").toString();
+			
 			Linkedin linkedinDoc = new Linkedin();
 			linkedinDoc.setAccesToken(token);
-			linkedinDoc.setPictureUrl(jsonObject.get("pictureUrl").toString());
 			linkedinDoc.setSkils(linkedinSkillList);
+			
+			linkedinDoc.setPictureUrl(pictureUrl);
+			linkedinDoc.setLastName(lastName);
+			linkedinDoc.setFirstName(firstName);
+			linkedinDoc.setHeadline(headline);
 
 			return linkedinDoc;
 		} catch (IOException e) {
