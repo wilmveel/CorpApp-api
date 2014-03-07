@@ -70,7 +70,7 @@ public class LinkedinService {
 			
 			Linkedin linkedinDoc = new Linkedin();
 			linkedinDoc.setAccesToken(token);
-			linkedinDoc.setSkils(linkedinSkillList);
+			linkedinDoc.setSkills(linkedinSkillList);
 			
 			linkedinDoc.setPictureUrl(pictureUrl);
 			linkedinDoc.setLastName(lastName);

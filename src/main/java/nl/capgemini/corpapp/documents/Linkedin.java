@@ -23,7 +23,7 @@ public class Linkedin implements Serializable {
 	private String headline;
 	private String pictureUrl;
 
-	private Collection<String> skils;
+	private Collection<String> skills;
 
 	private Date sync;
 
@@ -69,12 +69,12 @@ public class Linkedin implements Serializable {
 		this.accesToken = accesToken;
 	}
 
-	public Collection<String> getSkils() {
-		return skils;
+	public Collection<String> getSkills() {
+		return skills;
 	}
 
-	public void setSkils(Collection<String> skils) {
-		this.skils = skils;
+	public void setSkills(Collection<String> skills) {
+		this.skills = skills;
 	}
 
 	public Date getSync() {
