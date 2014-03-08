@@ -17,17 +17,21 @@ public class User implements Serializable {
 	@Indexed(unique = true)
 	private String username;
 	private String password;
+
+	@Indexed(unique = true)
 	private String corpKey;
+	private String email;
 
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String username, String password, String corpKey) {
+	public User(String username, String password, String corpKey, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.corpKey = corpKey;
+		this.email = email;
 	}
 
 	public String getId() {
@@ -60,6 +64,14 @@ public class User implements Serializable {
 
 	public void setCorpKey(String corpKey) {
 		this.corpKey = corpKey;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
