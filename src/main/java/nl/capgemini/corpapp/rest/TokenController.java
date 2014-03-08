@@ -30,7 +30,6 @@ public class TokenController {
 
 	@Autowired
 	private TokenStore tokenStore;
-	
 
 	@GET
 	@Path("/")

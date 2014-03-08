@@ -1,5 +1,6 @@
 package nl.capgemini.corpapp.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,11 +8,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import nl.capgemini.corpapp.documents.Linkedin;
-import nl.capgemini.corpapp.documents.User;
 import nl.capgemini.corpapp.security.MongoUserDetails;
+import nl.capgemini.corpapp.service.LinkedinService;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,15 +29,15 @@ public class LinkedinController {
 	@Resource
 	MongoOperations mongoOperation;
 
+	@Resource
+	LinkedinService linkedinService;
+
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Object get() {
-
 		List<Linkedin> LinkedinList = mongoOperation.findAll(Linkedin.class);
-
 		return LinkedinList;
-
 	}
 
 	@GET
@@ -66,6 +68,35 @@ public class LinkedinController {
 		Linkedin Linkedin = mongoOperation.findOne(query, Linkedin.class);
 
 		return Linkedin;
+
+	}
+
+	@GET
+	@Path("/connect")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object getConnect(@QueryParam("code") String code) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MongoUserDetails user = (MongoUserDetails) auth.getPrincipal();
+
+		Query query = new Query();
+		query.addCriteria(Criteria.where("corpkey").is(user.getUser().getCorpKey()));
+
+		String accessToken = linkedinService.accessToken(code);
+		
+		Linkedin linkedin = linkedinService.pull(accessToken);
+		linkedin.setAccesToken(accessToken);
+		linkedin.setCorpkey(user.getUser().getCorpKey());
+
+		Linkedin linkedinMongo = mongoOperation.findOne(query, Linkedin.class);
+		if (linkedinMongo != null) {
+			linkedin.setId(linkedinMongo.getId());
+		}
+
+		linkedin.setSync(new Date());
+		mongoOperation.save(linkedin);
+
+		return "OK";
 
 	}
 }
