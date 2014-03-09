@@ -55,7 +55,6 @@ public class InitController {
 		
 		mongoOperation.dropCollection(User.class);
 		// Init users
-		mongoOperation.save(new User("wveelent", "12345678", "WVEELENT", "willem.veelenturf@capgemini.com"));
 		mongoOperation.save(new User("baltena", "12345678", "BALTENA", "bart.altena@capgemini.com"));
 		mongoOperation.save(new User("wslager", "12345678", "WSLAGER", "wouter.slager@capgemini.com"));
 		mongoOperation.save(new User("prispen", "12345678", "PRISPEN", "paul.rispens@capgemini.com"));
