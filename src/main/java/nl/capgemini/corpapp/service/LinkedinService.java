@@ -42,6 +42,8 @@ public class LinkedinService {
 		request.append("&redirect_uri=" + requestUrl);
 		request.append("&client_id=" + CLIENT_ID);
 		request.append("&client_secret=" + CLIENT_SECRET);
+		
+		LOG.debug("Request url: " + requestUrl.toString());
 
 		try {
 			URL url = new URL(request.toString());
