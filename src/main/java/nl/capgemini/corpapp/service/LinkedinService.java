@@ -32,13 +32,14 @@ public class LinkedinService {
 	private static final Logger LOG = Logger.getLogger(LinkedinService.class);
 
 	public static final String LINKEDIN_URL = "https://api.linkedin.com/v1/people";
-	public static final String REDIRECT_URL = "http://localhost:8080/corpapi/rest/linkedin/connect";
+	
+	private String requestUrl;
 
 	public String accessToken(String code) {
 		StringBuilder request = new StringBuilder();
 		request.append("https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code");
 		request.append("&code=" + code);
-		request.append("&redirect_uri=" + REDIRECT_URL);
+		request.append("&redirect_uri=" + requestUrl);
 		request.append("&client_id=" + CLIENT_ID);
 		request.append("&client_secret=" + CLIENT_SECRET);
 
@@ -80,7 +81,7 @@ public class LinkedinService {
 		return "";
 	}
 
-	public Linkedin pull(String token) {
+	public Linkedin pull(String token) throws IOException {
 
 		StringBuilder url = new StringBuilder(LINKEDIN_URL);
 		url.append("/~:(first-name,last-name,headline,picture-url,skills,certifications,educations,)");
@@ -133,9 +134,6 @@ public class LinkedinService {
 			linkedinDoc.setHeadline(headline);
 
 			return linkedinDoc;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,6 +141,11 @@ public class LinkedinService {
 
 		return null;
 
+	}
+
+	public void setRequestURL(String requestUrl) {
+		this.requestUrl = requestUrl;
+		
 	}
 
 }

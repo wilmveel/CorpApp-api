@@ -11,6 +11,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -25,31 +26,33 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-   @Bean
-    public ContentNegotiatingViewResolver contentViewResolver() throws Exception {
-        ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
-        contentNegotiationManager.addMediaType("json", MediaType.APPLICATION_JSON);
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+	}
 
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/jsp/");
-        viewResolver.setSuffix(".jsp");
+	@Bean
+	public ContentNegotiatingViewResolver contentViewResolver() throws Exception {
+		ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
+		contentNegotiationManager.addMediaType("json", MediaType.APPLICATION_JSON);
 
-        MappingJacksonJsonView defaultView = new MappingJacksonJsonView();
-        defaultView.setExtractValueFromSingleKeyModel(true);
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setPrefix("/WEB-INF/jsp/");
+		viewResolver.setSuffix(".jsp");
 
-        ContentNegotiatingViewResolver contentViewResolver = new ContentNegotiatingViewResolver();
-        contentViewResolver.setContentNegotiationManager(contentNegotiationManager.getObject());
-        contentViewResolver.setDefaultViews(Arrays.<View>asList(new MappingJacksonJsonView()));
-        contentViewResolver.setViewResolvers(Arrays.<ViewResolver>asList(viewResolver));
-        contentViewResolver.setDefaultViews(Arrays.<View>asList(defaultView));
-        return contentViewResolver;
-    }
+		MappingJacksonJsonView defaultView = new MappingJacksonJsonView();
+		defaultView.setExtractValueFromSingleKeyModel(true);
 
-    
+		ContentNegotiatingViewResolver contentViewResolver = new ContentNegotiatingViewResolver();
+		contentViewResolver.setContentNegotiationManager(contentNegotiationManager.getObject());
+		contentViewResolver.setDefaultViews(Arrays.<View> asList(new MappingJacksonJsonView()));
+		contentViewResolver.setViewResolvers(Arrays.<ViewResolver> asList(viewResolver));
+		contentViewResolver.setDefaultViews(Arrays.<View> asList(defaultView));
+		return contentViewResolver;
+	}
 
-    @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
 }

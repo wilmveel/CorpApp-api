@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/webjars/**", "/images/**");
+		web.ignoring().antMatchers("/static/**");
 	}
 
 	@Override
@@ -63,7 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .formLogin()
                     .usernameParameter("j_username")
                     .passwordParameter("j_password")
-                    .failureUrl("/login.jsp?authentication_error=true")
+                    .loginPage("/static/login.html")
+                    .failureUrl("/login.html?authentication_error=true")
                     .loginProcessingUrl("/login.do");
         // @formatter:on
     }
