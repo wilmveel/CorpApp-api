@@ -1,5 +1,7 @@
 package nl.capgemini.corpapp.services;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
 import nl.capgemini.corpapp.config.TestApplicatoinConfig;
@@ -41,7 +43,12 @@ public class LinkedinServicesTest  {
 		
 		LOG.debug("Found Willem: " + linkedin.getCorpkey());
 		
-		linkedin = linkedinService.pull(linkedin.getAccesToken());
+		try {
+			linkedin = linkedinService.pull(linkedin.getAccesToken());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		LOG.debug("Picture Url: " +linkedin.getPictureUrl());
 		
