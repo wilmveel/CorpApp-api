@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capgmini CorpApp</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Capgemini CorpApp</a>
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Capgmini Corporate App</h1>
+			<p>This project is .... coding night ...
+		</div>
+	</div>
+	<div class="container" ng-controller="IndexController">
+	
+		<div class="row">
+			<div class="col-sm-6">
+				<h1>Step 1</h1>
+				<h3>Register</h3>
+				<p>To be able to use the corporate app you have to register your selve with you your Capgmeini email address and Corporate key. A username and password wil be send to your capgemini email adress.</p>
+				<form role="form">
+					<div class="form-group">
+						<label for="exampleInputEmail1">Email address</label> <input
+							ng-model="email" type="email" class="form-control" id="email"
+							placeholder="Enter email">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Corporate key</label> <input ng-model="corpKey"
+							type="text" class="form-control" id="corpkey"
+							placeholder="Password">
+					</div>
+					<button class="btn btn-primary btn-block" type="submit" ng-click="signup()">Register</button>
+				</form>
+			</div>
+			<div class="col-sm-6">
+				<h1>Step 2</h1>
+				<h3>Download the App</h3>
+				<p>There are three versions of the app of each opperation system. Download and install the app by opening the link or scan the QR code.</p>
+
+					<a class="btn btn-block btn-primary"
+						href="https://build.phonegap.com/apps/814354/download/android">Android
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</a>
+
+					<a class="btn btn-block btn-primary"
+						href="https://build.phonegap.com/apps/814354">IOS <span
+						class="glyphicon glyphicon-chevron-right"></span>
+					</a>
+				
+					<a class="btn btn-block btn-primary"
+						href="https://build.phonegap.com/apps/814354/download/winphone">Windows
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</a>
+			
+				<img class="qr-code"
+					src="https://chart.googleapis.com/chart?chs=116x116&amp;cht=qr&amp;chl=http://build.phonegap.com/apps/814354/install/?qr_key=7sDT9QgpzqNqeaL43zjp&amp;chld=L|1&amp;choe=UTF-8">
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/angular.min.js"></script>	
+	<script src="app/app.js"></script>
+
+</body>
+</html>

@@ -43,9 +43,10 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
 		http
 			.authorizeRequests()
 				.expressionHandler(new OAuth2WebSecurityExpressionHandler())
+				.antMatchers("/rest/user/register").anonymous()
 				.antMatchers("/rest/**").access("#oauth2.clientHasRole('ROLE_CLIENT') or hasRole('ROLE_USER')")
 			.and()
-				.requestMatchers().antMatchers("/rest/**", "/oauth/users/**", "/oauth/clients/**");
+				.requestMatchers().antMatchers("/rest/**");
 		// @formatter:on
 	}
 

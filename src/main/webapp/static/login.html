@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap 101 Template</title>
+<title>Login</title>
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,26 +17,22 @@
     <![endif]-->
 </head>
 <body>
-	<h1>Login</h1>
 
-	<form name="f" action="../login.do" method="POST">
-		<table>
-			<tbody>
-				<tr>
-					<td>User:</td>
-					<td><input type="text" name="j_username" value=""></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="j_password"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input name="submit" type="submit"
-						value="Login"></td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
+	<div class="container">
+
+		<form class="form-signin" role="form" action="../login.do"
+			method="POST">
+			<h2 class="form-signin-heading">Please login</h2>
+			<input type="text" name="j_username"  class="form-control" placeholder="Username" autofocus=""> <input
+				type="password" name="j_password" class="form-control"
+				placeholder="Password"> <label class="checkbox"> <input
+				type="checkbox" value="remember-me"> Remember me
+			</label>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+			<button class="btn btn-lg btn-default btn-block" type="submit">Register</button>
+		</form>
+
+	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
