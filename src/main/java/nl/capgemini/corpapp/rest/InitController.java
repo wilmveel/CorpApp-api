@@ -59,7 +59,7 @@ public class InitController {
 		mongoOperation.save(new User("wslager", "12345678", "WSLAGER", "wouter.slager@capgemini.com"));
 		mongoOperation.save(new User("prispen", "12345678", "PRISPEN", "paul.rispens@capgemini.com"));
 		mongoOperation.save(new User("cveelent", "12345678", "CVEELENT", "christien.veelenturf@capgemini.com"));
-
+		mongoOperation.save(new User("rebbers", "12345678", "REBBERS", "richard.ebbers@capgemini.com"));
 		List<User> User = mongoOperation.findAll(User.class);
 
 		return User;
@@ -113,10 +113,10 @@ public class InitController {
 		
 		mongoOperation.dropCollection(Escape.class);
 		
-		// Init users
-		mongoOperation.save(new Escape("Wintersport", new Date()));
-		mongoOperation.save(new Escape("Efteling", new Date()));
-	
+		// Init escape		
+		mongoOperation.save(new Escape(new Date(), "http://van.zelf.nl/wp-content/uploads/2010/02/wintersport2.jpg", "Wintersport", "Fijne vakantie"));
+		mongoOperation.save(new Escape(new Date(), "http://upload.wikimedia.org/wikipedia/commons/0/0b/Rijksmuseum_Amsterdam.jpg", "Rijksmuseum Amsterdam", "We gaan naar Amsterdam!!"));
+		
 
 		List<Escape> escape = mongoOperation.findAll(Escape.class);
 
