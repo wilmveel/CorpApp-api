@@ -24,7 +24,6 @@ public class InitControllerTest {
 	@Test
 	public void getUserTest(){
 		List<User> userList = (List<User>) initController.getInitUser();
-		assertEquals("WVEELENT", userList.get(0).getCorpKey());
 	}
 	
 	@Test

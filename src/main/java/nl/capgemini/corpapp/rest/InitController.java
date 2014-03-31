@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import nl.capgemini.corpapp.documents.Carpool;
+import nl.capgemini.corpapp.documents.CarpoolLocation;
 import nl.capgemini.corpapp.documents.Escape;
 import nl.capgemini.corpapp.documents.Linkedin;
 import nl.capgemini.corpapp.documents.User;
@@ -60,6 +61,11 @@ public class InitController {
 		mongoOperation.save(new User("prispen", "12345678", "PRISPEN", "paul.rispens@capgemini.com"));
 		mongoOperation.save(new User("cveelent", "12345678", "CVEELENT", "christien.veelenturf@capgemini.com"));
 		mongoOperation.save(new User("rebbers", "12345678", "REBBERS", "richard.ebbers@capgemini.com"));
+
+		mongoOperation.save(new User("wveelent", "12345678", "WVEELENT", "willem.veelenturf@capgemini.com"));
+		mongoOperation.save(new User("ehermans", "12345678", "EHERMANS", "bert.hermans@capgemini.com"));
+		mongoOperation.save(new User("wkersten", "12345678", "WKERSTEN", "willem.kersten@capgemini.com"));
+
 		List<User> User = mongoOperation.findAll(User.class);
 
 		return User;
@@ -74,8 +80,12 @@ public class InitController {
 		
 		mongoOperation.dropCollection(Carpool.class);
 		// Init users
-		mongoOperation.save(new Carpool("Amsterdam", "Utrecht", "WVEELENT"));
-		mongoOperation.save(new Carpool("Gouda", "Den Haag", "BALTENA"));
+		
+		CarpoolLocation carpoolLocation1 = new CarpoolLocation("Reykjavikplein 1, Utrecht, Netherlands", 52.308226, 4.944984999999974);
+		CarpoolLocation carpoolLocation2 = new CarpoolLocation("Haarlemmerweg, 1055 Amsterdam, Nederland", 52.3848374, 4.851391799999988);
+		
+		mongoOperation.save(new Carpool(carpoolLocation1, carpoolLocation2, "WVEELENT"));
+		mongoOperation.save(new Carpool(carpoolLocation2, carpoolLocation1, "BALTENA"));
 
 		List<Carpool> carpool = mongoOperation.findAll(Carpool.class);
 
@@ -97,7 +107,6 @@ public class InitController {
 		mongoOperation.save(new Linkedin("WSLAGER", "AQUjNB-yqO3Q_il972SGyl6a-DCCBznVEgtF63-Tx30jWbPJFonVh0Hg49lEMFy_x8qWwPSofMgMAt5uzYs103gyw7jogfl0pAohkih1-PZhD0T5b61oyb7lAef-GrU0wX1foXkFKYG7zaArx-xHaRkBPO-EtwAQMXMnpaooSxUPpBADwD4"));
 		mongoOperation.save(new Linkedin("PCHAUBEY", "AQVLGF1TJh_yQr5R6i4AC_Ho5bPtvAzG7Et7jM88xTGbSCxs5GZvAKpO4xv9beA-ZuV-S2lnxhrTG-nCNlKoMlNao0gZrCtjtA-MBFI9xe4UkPEzh6ULF3eRbdVKPle6nIq1QevUmfEfqDQp7WeXUdBoKtj9adpBJ9goUTBeFZ3HcXxdxtI"));
 		mongoOperation.save(new Linkedin("IREKOK", "AQVAk-ZDW1Wkb9mnhIr0cJMTxlkw_rgYiJYMebklHZAUs3x_fPYOabu0LZ3Fw_n1oSXc6mVfUJdq9hyYYZ9Tpdj-db3itybFAM6108uQR3NsWWn_iEKKkARDjtYADZIuW3gstaxeo4wRQtS4tcvGp8ARnAbGrY6ox0cwQKXM-sh9hghPHhU"));
-
 
 		List<Linkedin> linkedin = mongoOperation.findAll(Linkedin.class);
 

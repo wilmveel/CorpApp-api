@@ -9,15 +9,15 @@ public class Carpool {
 	
 	private String corpkey;
 
-	private String from;
-	private String to;
+	private CarpoolLocation from;
+	private CarpoolLocation to;
 	private Date date;
 
 	public Carpool() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Carpool(String from, String to, String corpkey) {
+	public Carpool(CarpoolLocation from, CarpoolLocation to, String corpkey) {
 		super();
 		this.from = from;
 		this.to = to;
@@ -25,19 +25,19 @@ public class Carpool {
 		this.date = new Date();
 	}
 
-	public String getFrom() {
+	public CarpoolLocation getFrom() {
 		return from;
 	}
 
-	public void setFrom(String from) {
+	public void setFrom(CarpoolLocation from) {
 		this.from = from;
 	}
 
-	public String getTo() {
+	public CarpoolLocation getTo() {
 		return to;
 	}
 
-	public void setTo(String to) {
+	public void setTo(CarpoolLocation to) {
 		this.to = to;
 	}
 
