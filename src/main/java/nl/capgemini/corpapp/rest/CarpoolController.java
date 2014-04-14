@@ -68,11 +68,11 @@ public class CarpoolController {
 		List<Carpool> carpoolList = new ArrayList();
 
 		query = new Query();
-		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude, longitude, 0.75)););
+		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude, longitude, 0.75)));
 		carpoolList.addAll(mongoOperation.find(query, Carpool.class));
 
 		query = new Query();
-		query.addCriteria(Criteria.where("to.position").within(new Circle(latitude, longitude, 0.75)););
+		query.addCriteria(Criteria.where("to.position").within(new Circle(latitude, longitude, 0.75)));
 		carpoolList.addAll(mongoOperation.find(query, Carpool.class));
 		
 		return carpoolList;
