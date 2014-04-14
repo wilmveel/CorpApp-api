@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 import nl.capgemini.corpapp.documents.Carpool;
 
 import org.apache.log4j.Logger;
@@ -59,16 +58,19 @@ public class CarpoolController {
 		double radius = 6371.01;
 		double latitude = Double.parseDouble(lat);
 		double longitude = Double.parseDouble(lon);
-	
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName(); // get logged in username
 		System.out.println("Name: " + name);
 
 		Query query = new Query();
-		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude,longitude, 0.75) ));
-
-		List<Carpool> carpoolList = mongoOperation.find(query, Carpool.class);
+		Criteria fromCriteria = Criteria.where("from.position").within(new Circle(latitude, longitude, 0.75));
+		Criteria toCriteria = Criteria.where("to.position").within(new Circle(latitude, longitude, 0.75));
 		
+		query.addCriteria(new Criteria().orOperator(fromCriteria, toCriteria));
+		
+		List<Carpool> carpoolList = mongoOperation.find(query, Carpool.class);
+
 		return carpoolList;
 
 	}
