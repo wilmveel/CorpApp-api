@@ -1,5 +1,6 @@
 package nl.capgemini.corpapp.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -63,14 +64,17 @@ public class CarpoolController {
 		String name = auth.getName(); // get logged in username
 		System.out.println("Name: " + name);
 
-		Query query = new Query();
-		Criteria fromCriteria = Criteria.where("from.position").within(new Circle(latitude, longitude, 0.75));
-		Criteria toCriteria = Criteria.where("to.position").within(new Circle(latitude, longitude, 0.75));
-		
-		query.addCriteria(new Criteria().orOperator(fromCriteria, toCriteria));
-		
-		List<Carpool> carpoolList = mongoOperation.find(query, Carpool.class);
+		Query query;
+		List<Carpool> carpoolList = new ArrayList();
 
+		query = new Query();
+		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude, longitude, 0.75)););
+		carpoolList.addAll(mongoOperation.find(query, Carpool.class));
+
+		query = new Query();
+		query.addCriteria(Criteria.where("to.position").within(new Circle(latitude, longitude, 0.75)););
+		carpoolList.addAll(mongoOperation.find(query, Carpool.class));
+		
 		return carpoolList;
 
 	}
