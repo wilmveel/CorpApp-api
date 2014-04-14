@@ -12,13 +12,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
 import nl.capgemini.corpapp.documents.Carpool;
-import nl.capgemini.corpapp.helper.GeoLocationHelper;
 
 import org.apache.log4j.Logger;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.geo.Circle;
-import org.springframework.data.mongodb.core.geo.Shape;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.Authentication;
