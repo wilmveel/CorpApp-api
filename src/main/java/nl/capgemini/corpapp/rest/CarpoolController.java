@@ -55,8 +55,6 @@ public class CarpoolController {
 
 		System.out.println("Lat: " + lat + " Lon: " + lon);
 
-		double distance = 5;
-		double radius = 6371.01;
 		double latitude = Double.parseDouble(lat);
 		double longitude = Double.parseDouble(lon);
 
@@ -65,14 +63,17 @@ public class CarpoolController {
 		System.out.println("Name: " + name);
 
 		Query query;
-		List<Carpool> carpoolList = new ArrayList();
+		List<Carpool> carpoolList = new ArrayList<Carpool>();
+		
+		int distance = 5;
+		double radius = distance / 6371;
 
 		query = new Query();
-		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude, longitude, 0.75)));
+		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude, longitude, radius)));
 		carpoolList.addAll(mongoOperation.find(query, Carpool.class));
 
 		query = new Query();
-		query.addCriteria(Criteria.where("to.position").within(new Circle(latitude, longitude, 0.75)));
+		query.addCriteria(Criteria.where("to.position").within(new Circle(latitude, longitude, radius)));
 		carpoolList.addAll(mongoOperation.find(query, Carpool.class));
 		
 		return carpoolList;
