@@ -65,8 +65,10 @@ public class CarpoolController {
 		Query query;
 		List<Carpool> carpoolList = new ArrayList<Carpool>();
 		
-		int distance = 5;
-		double radius = distance / 6371;
+		double distance = 5;
+		double earth = 6371;
+		double radius = distance / earth;
+		System.out.println(radius);
 
 		query = new Query();
 		query.addCriteria(Criteria.where("from.position").within(new Circle(latitude, longitude, radius)));
