@@ -65,7 +65,7 @@ public class CarpoolController {
 		Query query;
 		List<Carpool> carpoolList = new ArrayList<Carpool>();
 		
-		double distance = 25;
+		double distance = 250;
 		double earth = 6371;
 		double radius = distance / earth;
 		System.out.println(radius);
